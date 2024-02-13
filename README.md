@@ -1,6 +1,6 @@
 # Pipe Loss App
 
-This is a Python App built with Kivy Library which computes the head loss of a fluid moving along a pipe system taking into account Major and minor losses. 
+This is a Python App built with Kivy Library which computes the head loss of a fluid moving along a pipeline system taking into account Major and minor losses. 
 
 
 
