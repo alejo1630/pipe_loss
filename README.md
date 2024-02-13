@@ -6,7 +6,7 @@ This is a Python App built with Kivy Library which computes the head loss of a f
 
 ## 🔰 How does it work?
 
-This app is built using Kivy builder settings. It has several windows where an user could input the data to compute the head losses of a fluid into a pipe system with accesories.
+This app is based in Kivy builder. It has several windows where an user could input the data to compute the head losses of a fluid into a pipe system with accesories.
 
 ## Main Window
 
