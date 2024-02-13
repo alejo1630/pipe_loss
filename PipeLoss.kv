@@ -1,0 +1,1448 @@
+WindowManager:
+
+    IntroWindow:
+
+    FluidWindow:
+
+    PipeWindow:
+
+    AccessoriesWindow:
+
+    CalculationWindow:
+
+    OtherFluidWindow:
+
+    RoughnessWindow:
+
+    GeometryWindow:
+
+    OtherMaterialWindow:
+
+    G1Window:
+
+    G2Window:
+
+    G3Window:
+
+    G4Window:
+
+    ListAccWindow:
+
+
+<IntroWindow>:
+    name: "intro"
+    
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+        spacing: 30
+        padding: 30
+
+        BoxLayout: 
+            orientation: "horizontal"
+
+            Label:
+                text: "Pipe Loss"
+                font_size: 120
+                font_name: "Tahoma" 
+                color: "769CED"
+            
+            Image:
+                source: "Images/Logo.png"
+
+
+        BoxLayout:
+            orientation: "horizontal"
+            spacing: 30
+
+            Button: # Fluid Button
+                text: "Fluid\nProperties"
+                halign: "center"
+                bold: True
+                on_release: app.root.current = "fluid"
+
+            Button:
+                text: "Pipe\nCharacteristics"
+                halign: "center"
+                bold: True
+                on_release: app.root.current = "pipe"
+
+            Button:
+                text: "Accessories"
+                halign: "center"
+                bold: True
+                on_release: app.root.current = "accessories"
+
+
+        BoxLayout: 
+            orientation: "horizontal"
+            spacing: 30
+            padding: 50
+
+            Button: 
+                text: "Calculation"
+                halign: "center"
+                bold: True
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.5, 0.5)
+                color: "36E00D"
+                font_size: 40
+                on_release: 
+                    root.calculation()
+                    app.root.current = "calculation"
+
+            
+
+<FluidWindow>:
+    name: "fluid"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: 30
+
+        BoxLayout:
+            orientation: "vertical"
+
+            Label: # Name of the App
+                text: "Fluid Properties"
+                font_size: 90
+                font_name: "Tahoma" 
+                color: "2DB6FF"
+
+
+        BoxLayout:
+            orientation: "horizontal"
+
+            Label:
+                text: "Fluid rate [m3/s]"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+            TextInput:
+                id: fluid_rate
+                multiline: False
+                halign: "right"
+                valign: "center"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.35)
+
+
+        BoxLayout:
+            orientation: "vertical"
+            
+            GridLayout:
+                cols: 2             
+
+                Label: 
+                    text: "Water"
+                    font_size: 40
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Fluid"
+                    on_active: root.checkbox_click(self, self.active, "Water")
+
+                Label: 
+                    text: "Air"
+                    font_size: 40
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Fluid"
+                    on_active: root.checkbox_click(self, self.active, "Air")
+
+                Label: 
+                    text: "Glycerine"
+                    font_size: 40
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Fluid"
+                    on_active: root.checkbox_click(self, self.active, "Glycerine")                
+
+                Label: 
+                    text: "Oil"
+                    font_size: 40
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Fluid"
+                    on_active: root.checkbox_click(self, self.active, "Oil")
+
+                Label: 
+                    text: "Gasoline"
+                    font_size: 40
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Fluid"
+                    on_active: root.checkbox_click(self, self.active, "Gasoline")
+
+                Label: 
+                    text: "Other"
+                    font_size: 40
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Fluid"
+                    on_active: 
+                        root.checkbox_click(self, self.active, "Other")
+                        app.root.current = "other_fluid"  
+        
+
+        BoxLayout:
+            orientation: "horizontal"
+            
+            Label:
+                id: density_label
+                font_size: 40
+                font_name: "Tahoma"
+            
+            Label:
+                id: viscosity_label   
+                font_size: 40
+                font_name: "Tahoma"
+
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: 50
+
+            Button:
+                text: "<|"
+                color: "0DA6E0"
+                font_size: 40
+                bold: True
+                on_release: app.root.current = "intro"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+
+<OtherFluidWindow>:
+    name: "other_fluid"
+
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            orientation: "vertical"
+
+            Label:
+                text: "Other Fluid"
+                font_size: 90
+                font_name: "Tahoma" 
+                color: "3475EE"
+
+
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 20
+
+            Label:
+                text: "Name"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+            TextInput:
+                id: fluid_name
+                multiline: False
+                halign: "right"
+                valign: "center"
+                font_size: 40
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.35)
+
+
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 20
+
+            Label:
+                text: "Density [kg/m3]"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+            TextInput:
+                id: density_text
+                multiline: False
+                halign: "right"
+                valign: "center"
+                font_size: 40
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.35)
+        
+
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 20
+
+            Label:
+                text: "Viscosity [Pa-s]"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+            TextInput:
+                id: viscosity_text
+                multiline: False
+                halign: "right"
+                valign: "center"
+                font_size: 40
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.35)
+
+        
+        BoxLayout:
+            orientation: "vertical"
+            padding: 50
+
+            Button:
+                text: "<|"
+                color: "0DA6E0"
+                font_size: 40
+                bold: True
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+                on_release:
+                    root.change_properties() 
+                    app.root.current = "fluid"
+                    
+  
+<PipeWindow>:
+    name: "pipe"
+
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            orientation: "vertical"
+            
+            Label:
+                text: "Pipe Properties"
+                font_size: 90
+                font_name: "Tahoma"
+                color: "22DF5E"
+
+       
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 50
+
+            Label:
+                text: "Length of the pipe [m]"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+            TextInput:
+                id: pipe_length
+                multiline: False
+                halign: "right"
+                valign: "center"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.40)
+
+        
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 30
+
+            Button:
+                text: "Material\nRoughness"
+                halign: "center"
+                bold: "True"
+                on_release: app.root.current = "roughness"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.4, 0.2)
+
+            Button:
+                text: "Geometry\nSection"
+                halign: "center"
+                bold: "True"
+                on_release: app.root.current = "geometry"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.4, 0.2)
+
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: 50
+
+            Button:
+                text: "<|"
+                color: "0DA6E0"
+                font_size: 40
+                bold: True
+                on_release: app.root.current = "intro"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+
+<RoughnessWindow>:
+    name: "roughness"
+
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            orientation: "vertical"
+
+            Label:
+                text: "Pipe Material"
+                font_size: 90
+                font_name: "Tahoma" 
+                color: "E97C16"
+
+
+        BoxLayout:
+            orientation: "vertical"
+            
+            GridLayout:
+                cols: 4
+
+                Label: 
+                    text: "Glass"
+                    font_size: 30
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Material"
+                    on_active: root.checkbox_click(self, self.active, "Glass")
+
+                Label: 
+                    text: "Plastic"
+                    font_size: 30
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Material"
+                    on_active: root.checkbox_click(self, self.active, "Plastic")
+
+                Label: 
+                    text: "Copper"
+                    font_size: 30
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Material"
+                    on_active: root.checkbox_click(self, self.active, "Copper")
+                
+                Label: 
+                    text: "Brass"
+                    font_size: 30
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Material"
+                    on_active: root.checkbox_click(self, self.active, "Brass")
+                
+                Label: 
+                    text: "Steel"
+                    font_size: 30
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Material"
+                    on_active: root.checkbox_click(self, self.active, "Steel")
+
+                Label: 
+                    text: "Commercial Steel"
+                    font_size: 30
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Material"
+                    on_active: root.checkbox_click(self, self.active, "Commercial Steel")
+
+                Label: 
+                    text: "Welded Steel"
+                    font_size: 30
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Material"
+                    on_active: root.checkbox_click(self, self.active, "Welded Steel")
+                
+                Label: 
+                    text: "Galvanized Iron"
+                    font_size: 30
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Material"
+                    on_active: root.checkbox_click(self, self.active, "Galvanized Iron")
+
+                Label: 
+                    text: "Ductile Iron-Coated"
+                    font_size: 30
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Material"
+                    on_active: root.checkbox_click(self, self.active, "Ductile Iron-Coated")
+                
+                Label: 
+                    text: "Ductile Iron-Uncoated"
+                    font_size: 30
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Material"
+                    on_active: root.checkbox_click(self, self.active, "Ductile Iron-Uncoated")
+
+                Label: 
+                    text: "Concrete"
+                    font_size: 30
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Material"
+                    on_active: root.checkbox_click(self, self.active, "Concrete")
+
+                Label: 
+                    text: "Riveted Steel"
+                    font_size: 30
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Material"
+                    on_active: root.checkbox_click(self, self.active, "Riveted Steel")
+
+                Label: 
+                    text: "Other Material"
+                    font_size: 30
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Material"
+                    on_active: 
+                        root.checkbox_click(self, self.active, "Other Material")
+                        app.root.current = "other_material"
+
+                Label:
+                    text: "Roughness [m]"
+                    bold: True
+                    font_size: 40
+                    font_name: "Tahoma"
+                    color: "E97C16"
+
+                Label:
+                    id: roughness_label
+                    bold: True
+                    font_size: 40
+                    font_name: "Tahoma"
+                    color: "E97C16"
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: 50
+
+            Button:
+                text: "<|"
+                color: "0DA6E0"
+                font_size: 40
+                bold: True
+                on_release: app.root.current = "pipe"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+
+<OtherMaterialWindow>:
+    name: "other_material"
+
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            orientation: "vertical"
+
+            Label:
+                text: "Other Material"
+                font_size: 90
+                font_name: "Tahoma" 
+                color: "F99D48"
+
+
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 40
+
+            Label:
+                text: "Name"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+            TextInput:
+                id: material_pipe
+                multiline: False
+                halign: "right"
+                valign: "center"
+                font_size: 40
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.3)
+
+
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 40
+
+            Label:
+                text: "Roughness [m]"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+            TextInput:
+                id: roughness_text
+                multiline: False
+                halign: "right"
+                valign: "center"
+                font_size: 40
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.3)
+        
+        
+        BoxLayout:
+            orientation: "vertical"
+            padding: 50
+
+            Button:
+                text: "<|"
+                color: "0DA6E0"
+                font_size: 40
+                bold: True
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+                on_release:
+                    root.other_material_info() 
+                    app.root.current = "roughness"
+
+
+<GeometryWindow>
+    name: "geometry"
+
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            orientation: "vertical"
+
+            Label:
+                text: "Geometry Section"
+                font_size: 90
+                font_name: "Tahoma" 
+                color: "F1EE23"
+
+        
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 30
+            spacing: 200
+
+            Button:
+                background_normal: "Images/G1.jpg"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                on_release: 
+                    root.g1()
+                    app.root.current = "g1"
+
+            Button:
+                background_normal: "Images/G2.jpg"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                on_release:
+                    root.g2() 
+                    app.root.current = "g2"
+
+
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 30
+            spacing: 200
+
+            Button:
+                background_normal: "Images/G3.jpg"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                on_release: 
+                    root.g3()
+                    app.root.current = "g3"
+                 
+            Button:
+                background_normal: "Images/G4.jpg"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                on_release:
+                    root.g4() 
+                    app.root.current = "g4"
+
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: 50
+
+            Button:
+                text: "<|"
+                color: "0DA6E0"
+                font_size: 40
+                bold: True
+                on_release: app.root.current = "pipe"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+
+<G1Window>:
+    name: "g1"
+    
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            orientation: "vertical"
+
+            Image:
+                source: "Images/G1.jpg"
+
+
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 50
+
+            Label:
+                text: "D [m]:"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+            TextInput:
+                id: g1_D
+                multiline: False
+                halign: "right"
+                valign: "center"
+                font_size: 40
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.25)
+
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: 50
+
+            Button:
+                text: "<|"
+                color: "0DA6E0"
+                font_size: 40
+                bold: True
+                on_release: app.root.current = "pipe"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+
+<G2Window>:
+    name: "g2"
+    
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            orientation: "vertical"
+
+            Image:
+                source: "Images/G2.jpg"
+
+
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 50
+
+            Label:
+                text: "D [m]:"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+            TextInput:
+                id: g2_D
+                multiline: False
+                halign: "right"
+                valign: "center"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.4)
+
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 50
+
+            Label:
+                text: "d [m]:"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+            TextInput:
+                id: g2_d
+                multiline: False
+                halign: "right"
+                valign: "center"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.4)
+
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: 50
+
+            Button:
+                text: "<|"
+                color: "0DA6E0"
+                font_size: 40
+                bold: True
+                on_release: app.root.current = "pipe"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+
+<G3Window>:
+    name: "g3"
+    
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            orientation: "vertical"
+
+            Image:
+                source: "Images/G3.jpg"
+
+
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 50
+
+            Label:
+                text: "B [m]:"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+            TextInput:
+                id: g3_B
+                multiline: False
+                halign: "right"
+                valign: "center"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.4)
+
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 50
+
+            Label:
+                text: "H [m]:"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+            TextInput:
+                id: g3_H
+                multiline: False
+                halign: "right"
+                valign: "center"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.4)
+
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: 50
+
+            Button:
+                text: "<|"
+                color: "0DA6E0"
+                font_size: 40
+                bold: True
+                on_release: app.root.current = "pipe"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+
+<G4Window>:
+    name: "g4"
+    
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            orientation: "vertical"
+
+            Image:
+                source: "Images/G4.jpg"
+
+
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 50
+
+            Label:
+                text: "B [m]:"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+            TextInput:
+                id: g4_B
+                multiline: False
+                halign: "right"
+                valign: "center"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.6)
+
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 50
+
+            Label:
+                text: "H [m]:"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+            TextInput:
+                id: g4_H
+                multiline: False
+                halign: "right"
+                valign: "center"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.6)
+        
+
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 50
+
+            Label:
+                text: "d [m]:"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+            TextInput:
+                id: g4_d
+                multiline: False
+                halign: "right"
+                valign: "center"
+                font_size: 50
+                font_name: "Tahoma"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.6)
+
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: 50
+
+            Button:
+                text: "<|"
+                color: "0DA6E0"
+                font_size: 40
+                bold: True
+                on_release: app.root.current = "pipe"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+
+<AccessoriesWindow>:
+    name: "accessories"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: 30
+
+        BoxLayout:
+            orientation: "vertical"
+
+            Label:
+                text: "Accessories"
+                font_size: 90
+                font_name: "Tahoma" 
+                color: "E52761"
+
+        BoxLayout:
+            orientation: "vertical"
+
+            GridLayout:
+                cols: 2
+
+                Label: 
+                    text: "No inlet"
+                    font_size: 40
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Inlet"
+                    on_active: root.checkbox_click(self, self.active, "No inlet")
+
+                Label: 
+                    text: "Inward-projecting"
+                    font_size: 40
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Inlet"
+                    on_active: root.checkbox_click(self, self.active, "Inward-projecting")
+
+                Label: 
+                    text: "Square-edged"
+                    font_size: 40
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Inlet"
+                    on_active: root.checkbox_click(self, self.active, "Square-edged")
+
+                Label: 
+                    text: "Chamfered"
+                    font_size: 40
+                    font_name: "Tahoma"
+                CheckBox:
+                    group: "Inlet"
+                    on_active: root.checkbox_click(self, self.active, "Chamfered")
+
+
+        BoxLayout:
+            orientation: "horizontal"
+
+            Label:
+                text: "Outlet"
+                bold: True
+                font_size: 50
+                font_name: "Tahoma"
+
+            Switch:
+                active: False
+                font_size: 20
+                font_name: "Tahoma"
+                on_active: root.switch_click(self, self.active)
+
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: 30
+
+            Button:
+                text: "Accessories"
+                bold: True
+                font_size: 30
+                on_release: app.root.current = "list_acc"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.5, 0.2)
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: 50
+
+            Button:
+                text: "<|"
+                color: "0DA6E0"
+                font_size: 40
+                bold: True
+                on_release: app.root.current = "intro"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+
+<ListAccWindow>:
+    name: "list_acc"
+
+    BoxLayout:
+        orientation: "vertical"
+
+        GridLayout:
+            cols: 2
+            padding: 20
+
+            Label:
+                text: "Globe Valve FO"
+            TextInput:
+                id: globe_valve
+                text: "0"
+                multiline: False
+                input_filter: 'int'
+                halign: "center"
+                valign: "center"
+                font_name: "Tahoma"
+                size_hint: (0.3, 1)
+
+            Label:
+                text: "Angle Valve FO"
+            TextInput:
+                id: angle_valve
+                text: "0"
+                multiline: False
+                input_filter: 'int'
+                halign: "center"
+                valign: "center"
+                font_name: "Tahoma"
+                size_hint: (0.3, 1)
+
+            Label:
+                text: "Gate Valve FO"
+            TextInput:
+                id: gate_valve_FO
+                text: "0"
+                multiline: False
+                input_filter: 'int'
+                halign: "center"
+                valign: "center"
+                font_name: "Tahoma"
+                size_hint: (0.3, 1)
+
+            Label:
+                text: "Gate Valve 3/4"
+            TextInput:
+                id: gate_valve_3_4
+                text: "0"
+                multiline: False
+                input_filter: 'int'
+                halign: "center"
+                valign: "center"
+                font_name: "Tahoma"
+                size_hint: (0.3, 1)
+
+            Label:
+                text: "Gate Valve 1/2"
+            TextInput:
+                id: gate_valve_1_2
+                text: "0"
+                multiline: False
+                input_filter: 'int'
+                halign: "center"
+                valign: "center"
+                font_name: "Tahoma"
+                size_hint: (0.3, 1)
+
+            Label:
+                text: "Gate Valve 1/4"
+            TextInput:
+                id: gate_valve_1_4
+                text: "0"
+                multiline: False
+                input_filter: 'int'
+                halign: "center"
+                valign: "center"
+                font_name: "Tahoma"
+                size_hint: (0.3, 1)
+
+            Label:
+                text: "Check Valve-Swing FO"
+            TextInput:
+                id: check_valve_swing
+                text: "0"
+                multiline: False
+                input_filter: 'int'
+                halign: "center"
+                valign: "center"
+                font_name: "Tahoma"
+                size_hint: (0.3, 1)
+
+            Label:
+                text: "Check Valve-Ball FO"
+            TextInput:
+                id: check_valve_ball
+                text: "0"
+                multiline: False
+                input_filter: 'int'
+                halign: "center"
+                valign: "center"
+                font_name: "Tahoma"
+                size_hint: (0.3, 1)
+
+            Label:
+                text: "Butterfly Valve FO"
+            TextInput:
+                id: butterfly_valve
+                text: "0"
+                multiline: False
+                input_filter: 'int'
+                halign: "center"
+                valign: "center"
+                font_name: "Tahoma"
+                size_hint: (0.3, 1)
+
+            Label:
+                text: "Ball Valve FO"
+            TextInput:
+                id: ball_valve
+                text: "0"
+                multiline: False
+                input_filter: 'int'
+                halign: "center"
+                valign: "center"
+                font_name: "Tahoma"
+                size_hint: (0.3, 1)
+
+            Label:
+                text: "Foot Valve-Poppet Disc FO"
+            TextInput:
+                id: foot_valve_poppet
+                text: "0"
+                multiline: False
+                input_filter: 'int'
+                halign: "center"
+                valign: "center"
+                font_name: "Tahoma"
+                size_hint: (0.3, 1)
+
+            Label:
+                text: "Foot Valve-Hinged Disc FO"
+            TextInput:
+                id: foot_valve_hinged   
+                text: "0"
+                multiline: False
+                input_filter: 'int'
+                halign: "center"
+                valign: "center"
+                font_name: "Tahoma"
+                size_hint: (0.3, 1)
+
+            Label:
+                text: "90° Elbow"
+            TextInput:
+                id: elbow_90
+                text: "0"
+                multiline: False
+                input_filter: 'int'
+                halign: "center"
+                valign: "center"
+                font_name: "Tahoma"
+                size_hint: (0.3, 1)
+
+            Label:
+                text: "45° Elbow"
+            TextInput:
+                id: elbow_45
+                text: "0"
+                multiline: False
+                input_filter: 'int'
+                halign: "center"
+                valign: "center"
+                font_name: "Tahoma"
+                size_hint: (0.3, 1)
+
+            Label:
+                text: "Return bend"
+            TextInput:
+                id: return_bend
+                text: "0"
+                multiline: False
+                input_filter: 'int'
+                halign: "center"
+                valign: "center"
+                font_name: "Tahoma"
+                size_hint: (0.3, 1)
+
+            Label:
+                text: "T-Flow Run"
+            TextInput:
+                id: t_flow_run
+                text: "0"
+                multiline: False
+                input_filter: 'int'
+                halign: "center"
+                valign: "center"
+                font_name: "Tahoma"
+                size_hint: (0.3, 1)
+
+            Label:
+                text: "T-Flow Branch"
+            TextInput:
+                id: t_flow_branch
+                text: "0"
+                multiline: False
+                input_filter: 'int'
+                halign: "center"
+                valign: "center"
+                font_name: "Tahoma"
+                size_hint: (0.3, 1)   
+
+        BoxLayout:
+            orientation: "vertical"
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            size_hint: (0.8, 0.2)
+            padding: 20
+
+            Button:
+                text: "<|"
+                color: "0DA6E0"
+                font_size: 40
+                bold: True
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+                on_release: 
+                    root.accessories_values()
+                    app.root.current = "accessories"
+
+        
+<CalculationWindow>:
+    name: "calculation"
+
+    BoxLayout:
+        orientation: "vertical"
+
+        GridLayout:
+            cols: 2
+            padding: 20
+
+            Label:
+                text: "Fluid:"
+            Label:
+                id: fluid_r
+                text: "--"
+                bold: True
+       
+            Label:
+                text: "Density [kg/m3]:"
+            Label:
+                id: density_r
+                text: "--"
+                bold: True
+
+            Label:
+                text: "Viscosity [Pa-s]:"
+            Label:
+                id: viscosity_r
+                text: "--"
+                bold: True
+
+            Label:
+                text: "Pipe Geometry:"
+            Label:
+                id: pipe_geometry_r
+                text: "--"
+                bold: True
+            
+            Label:
+                text: "Hydraulic Diameter [m]:"
+            Label:
+                id: pipe_dh_r
+                text: "--"
+                bold: True
+
+            Label:
+                text: "Pipe Area [m2]:"
+            Label:
+                id: pipe_area_r
+                text: "--"
+                bold: True
+
+            Label:
+                text: "Flow Rate [m3/s]:"
+            Label:
+                id: flow_rate_r
+                text: "--"
+                bold: True
+
+            Label:
+                text: "Velocity [m/s]:"
+            Label:
+                id: velocity_r
+                text: "--"
+                bold: True
+
+            Label:
+                text: "Reynolds Number:"
+            Label:
+                id: reynolds_r
+                text: "--"
+                bold: True
+
+            Label:
+                text: "Pipe Length [m]:"
+            Label:
+                id: length_r
+                text: "--"
+                bold: True
+
+            Label:
+                text: "Pipe Material:"
+            Label:
+                id: pipe_material_r
+                text: "--"
+                bold: True
+
+            Label:
+                text: "Roughness:"
+            Label:
+                id: roughness_r
+                text: "--"
+                bold: True
+
+            Label:
+                text: "Relative Roughness:"
+            Label:
+                id: relative_roughness_r
+                text: "--"
+                bold: True
+
+            Label:
+                text: "Friction Factor (f):"
+            Label:
+                id: friction_factor_r
+                text: "--"
+                bold: True
+
+            Label:
+                text: "Friction Factor Turbulence (fT):"
+            Label:
+                id: friction_factor_turbulence_r
+                text: "--"
+                bold: True
+
+            Label:
+                text: "Resistance Coefficient (K):"
+            Label:
+                id: resistance_coefficient_r
+                text: "--"
+                bold: True
+            
+            Label:
+                text: "Head Loss (HL) [m]:"
+            Label:
+                id: head_loss_r
+                text: "--"
+                bold: True
+                color: "27C0E5"
+
+                
+        BoxLayout:
+            orientation: "vertical"
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            size_hint: (0.8, 0.2)
+            padding: 20
+
+            Button:
+                text: "<|"
+                color: "0DA6E0"
+                font_size: 40
+                bold: True
+                on_release: app.root.current = "intro"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size_hint: (0.2, 0.2)
+
+
